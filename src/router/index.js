@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import VueLazyLoad from 'vue-lazyload'
 import Home from '@/components/Home'
+import Tours from '@/components/Tours'
+import Tour from '@/components/Tour'
 import Galery from '@/components/Galery'
 
 Vue.use(Router);
@@ -18,6 +20,16 @@ export default new Router({
 		path: '/',
 		name: 'Home',
 		component: Home
+    },
+    {
+    	path: '/tours',
+    	name: 'Tours',
+    	component: Tours,
+    },
+    {
+    	path: '/tours/:name',
+    	name: 'Tour',
+    	component: Tour,
     },
     {
     	path: '/galery',

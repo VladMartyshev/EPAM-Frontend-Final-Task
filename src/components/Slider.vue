@@ -2,18 +2,20 @@
   <div :style="{ width: width, height: height }" class="slider">
     <div class="items">
       <slider-item v-for="(item, index) in data" :key="index" >
-        <div class="slider-img" :style="{'background': `url(${item.img}) no-repeat center`, 'background-size':'cover'}">
+        <!-- <div class="slider-img" :style="{'background': `url(${item.img}) no-repeat center`, 'background-size':'cover'}"> -->
+          <div class="slider-img" :style="{'background': `url(${item.img}) no-repeat center`, 'background-size':'cover'}">
            <!-- <p>{{i.description}}</p> -->
         </div>
       </slider-item>
     </div>
     <!-- <slot></slot> -->
     <div class="about">
-        <span class="state about-text">{{data[nowItemIndex].state}}</span>
-        <span class="place about-text">{{data[nowItemIndex].place}}</span>
+        <span class="state about-text">{{data[nowItemIndex].country}}</span>
+        <span class="place about-text">{{data[nowItemIndex].name}}</span>
         <span class="about-text">from</span>
-        <span class="price about-text">{{data[nowItemIndex].price}}</span>
-        <a :href="data[nowItemIndex].link" class="about-link">More info</a>
+        <span class="price about-text">{{data[nowItemIndex].price}}$</span>
+        <!-- <a :href="data[nowItemIndex].link" class="about-link">More info</a> -->
+        <router-link class="about-link" :to="{ name: 'Tour', params: {name:  data[nowItemIndex].name.toLowerCase().split(' ').join('_')}}">More info</router-link>
     </div>
     
     <div :class="`indicators indi-${ indicators }`" @click.stop v-if="indicators">
@@ -96,7 +98,8 @@
         return this.children.length
       },
       data () {
-        return this.$store.getters.data;
+        //return this.$store.getters.data;
+        return this.$store.getters.tours.filter((item) => item.hot);
       }
     },
     methods: {

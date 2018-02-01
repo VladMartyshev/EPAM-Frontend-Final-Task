@@ -1,26 +1,29 @@
 <template>
-  <div id="app">
+  <div id="app" @click="hideMenu" @scroll="console.log('scroll')">
     <header>
       <div class="nav-fixed">
         <nav class="navbar">
           <div class="logo"><img src="./assets/logo.jpg" class="logo-img"></div>
-          <button :class="`toggle-btn ${isActive ? 'active' : ''}`" @click="toggle">
+          <button :class="`toggle-btn ${isActive ? 'active' : ''}`" ref="toggle" @click="toggle">
             <span></span>
             <span></span>
             <span></span>
           </button>
           <ul :class="`nav-list ${isActive ? 'open' : ''}`" id="nav-list">
             <li class="nav-element"><router-link :to="{ name: 'Home'}">Home</router-link></li>
-            <li class="nav-element"><a href="#">Tours</a>
+            <li class="nav-element"><router-link :to="{ name: 'Tours'}">Tours</router-link></li>
             <li class="nav-element"><router-link :to="{ name: 'Galery'}">Galery</router-link></li>
-            <li class="nav-element"><a href="#">Contacts</a></li>
+            <!-- <li class="nav-element"><a href="#">Contacts</a></li> -->
           </ul>
         </nav>
       </div>
     </header>
 
     <router-view class="router-view"/>
-
+    
+    <footer class="footer">
+      <div class="copyright">&copy;2018. Travel - All Rights Reserved</div>
+    </footer>
   </div>
 </template>
 
@@ -34,6 +37,11 @@ export default {
   methods: {
     toggle(e){
       this.isActive = !this.isActive;
+    },
+    hideMenu(e){
+      if(this.isActive && !(this.$refs.toggle.contains(e.target))) {
+        this.isActive = false;
+      }
     }
   }
 }
@@ -41,10 +49,15 @@ export default {
 
 <style lang="scss">
 @import './assets/fonts/Lato/latofonts.css';
+//@import "./assets/fontawesome/scss/fontawesome.scss";
+@import "./assets/fontawesome/css/fontawesome-all.css";
+//@import "./assets/fontawesome/scss/fa-solid.scss";
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "LatoWeb"
 }
 </style>
 
@@ -197,6 +210,22 @@ $toggle-between: ($toggle-size - $toggle-thickness * 3)/2;
 
 .router-view {
   padding-top: 70px;
+
+  background: #f9f9f9;
+  min-height: 400px;
+}
+
+.footer {
+  height: 100px;
+  background: #282828;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .copyright {
+    color: #FFF;
+    font-family: "LatoWeb";
+  }
 }
 
 // Small devices
